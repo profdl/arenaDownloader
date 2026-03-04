@@ -27,9 +27,8 @@ echo ""
 echo "Channel: $URL"
 echo ""
 
-# Activate venv and run
-source "$SCRIPT_DIR/.venv/bin/activate"
-python3 "$SCRIPT_DIR/arena_to_slides.py" "$URL"
+# Run with venv Python directly (more reliable than source activate in .command files)
+"$SCRIPT_DIR/.venv/bin/python3" "$SCRIPT_DIR/arena_to_slides.py" "$URL"
 
 # Show a macOS notification when done
 osascript -e 'display notification "Your slides are in Google Drive." with title "Are.na → Google Slides" sound name "Glass"' 2>/dev/null
