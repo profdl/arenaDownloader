@@ -36,14 +36,36 @@ source .venv/bin/activate
 pip install requests python-pptx Pillow
 ```
 
-For Google Drive upload:
+### Connecting Google Drive
 
-```bash
-brew install rclone
-rclone config create gdrive drive
-```
+The upload step uses [rclone](https://rclone.org/) to copy the `.pptx` into your Google Drive, where it's automatically converted to a Google Slides presentation.
 
-If `rclone` is not installed, the `.pptx` file is saved locally and can be opened directly.
+1. Install rclone:
+   ```bash
+   brew install rclone
+   ```
+
+2. Create a Google Drive remote called `gdrive`:
+   ```bash
+   rclone config
+   ```
+   - Choose **n** (New remote)
+   - Name it **gdrive**
+   - Choose **Google Drive** from the list (type `drive`)
+   - Leave Client ID and Client Secret blank (press Enter for defaults)
+   - Scope: choose **1** (full access)
+   - Leave root folder and service account blank (press Enter)
+   - Auto config: choose **Y** — a browser window will open asking you to sign in to Google and authorize rclone
+   - Team Drive: choose **N** (unless you want a shared drive)
+   - Confirm with **Y**
+
+3. Verify it works:
+   ```bash
+   rclone ls gdrive: --max-depth 1
+   ```
+   You should see files from your Google Drive root.
+
+If you skip this step, everything still works — the `.pptx` file is saved locally and you can open or upload it manually.
 
 ## Files
 
